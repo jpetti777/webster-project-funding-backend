@@ -9,7 +9,9 @@ const app = express();
 
 console.log('Middleware setup...');
 app.use(cors({
-  origin: 'https://your-frontend-url.com'
+  origin: 'https://macedon-project-funding-wq2g.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 console.log('Attempting to connect to MongoDB...');
