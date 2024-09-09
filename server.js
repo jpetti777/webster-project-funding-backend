@@ -2,6 +2,7 @@ console.log('Script is starting...');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -35,8 +36,21 @@ const surveySchema = new mongoose.Schema({
 
 const Survey = mongoose.model('Survey', surveySchema);
 
+// Add this function to ping the server
+const pingServer = async () => {
+  try {
+    const response = await axios.get('https://macedon-project-funding-backend.onrender.com');
+    console.log('Ping successful:', response.status);
+  } catch (error) {
+    console.error('Ping failed:', error.message);
+  }
+};
+
+// Set up the interval to ping every 5 minutes (300000 ms)
+setInterval(pingServer, 300000);
+
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Server is running');
 });
 
 app.post('/api/submit-survey', async (req, res) => {
@@ -53,7 +67,11 @@ app.post('/api/submit-survey', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  // Ping immediately on startup
+  pingServer();
+});
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
