@@ -10,7 +10,8 @@ const app = express();
 console.log('Middleware setup...');
 const corsOptions = {
   origin: [
-    'https://macedon-project-funding.vercel.app/',
+    'https://macedon-project-funding.vercel.app',
+    'https://macedon-project-funding-wq2g.vercel.app',
     'https://macedon-project-funding-wq2g-451gv2311-jps-projects-0831da4b.vercel.app',
     /https:\/\/macedon-project-funding-.*\.vercel\.app$/
   ],
