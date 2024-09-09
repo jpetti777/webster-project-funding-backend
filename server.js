@@ -13,6 +13,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use(express.json()); // Add this line to parse JSON request bodies
+
+// Rest of your server.js code...
 
 console.log('Attempting to connect to MongoDB...');
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -38,8 +41,8 @@ app.post('/api/submit-survey', async (req, res) => {
   try {
     const newSurvey = new Survey(req.body);
     await newSurvey.save();
-    console.log('Survey saved successfully');
-    res.status(201).json({ message: 'Survey submitted successfully' });
+    console.log('Survey saved successfully:', newSurvey);
+    res.status(201).json({ message: 'Survey submitted successfully', survey: newSurvey });
   } catch (error) {
     console.error('Error submitting survey:', error);
     res.status(400).json({ message: 'Error submitting survey', error: error.message });
