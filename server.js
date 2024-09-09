@@ -1,5 +1,4 @@
 console.log('Script is starting...');
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,11 +7,17 @@ require('dotenv').config();
 const app = express();
 
 console.log('Middleware setup...');
-app.use(cors({
-  origin: 'https://macedon-project-funding-wq2g-451gv2311-jps-projects-0831da4b.vercel.app',
+const corsOptions = {
+  origin: [
+    'https://macedon-project-funding-wq2g.vercel.app',
+    'https://macedon-project-funding-wq2g-451gv2311-jps-projects-0831da4b.vercel.app',
+    /https:\/\/macedon-project-funding-.*\.vercel\.app$/
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 console.log('Attempting to connect to MongoDB...');
@@ -47,7 +52,7 @@ app.post('/api/submit-survey', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;  // Changed to 3001
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 process.on('unhandledRejection', (reason, promise) => {
