@@ -8,8 +8,9 @@ require('dotenv').config();
 const app = express();
 
 console.log('Middleware setup...');
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: 'https://your-frontend-url.com'
+}));
 
 console.log('Attempting to connect to MongoDB...');
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
