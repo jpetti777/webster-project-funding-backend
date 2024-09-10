@@ -47,8 +47,8 @@ const pingServer = async () => {
   }
 };
 
-// Set up the interval to ping every 5 minutes (300000 ms)
-setInterval(pingServer, 300000);
+// Set up the interval to ping every 2 minutes (120000 ms)
+setInterval(pingServer, 120000);
 
 app.get('/', (req, res) => {
   res.send('Server is running');
