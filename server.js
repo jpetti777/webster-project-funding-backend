@@ -10,10 +10,8 @@ const app = express();
 console.log('Middleware setup...');
 const corsOptions = {
   origin: [
-    'https://macedon-project-funding.vercel.app',
-    'https://macedon-project-funding-wq2g.vercel.app',
-    'https://macedon-project-funding-wq2g-451gv2311-jps-projects-0831da4b.vercel.app',
-    /https:\/\/macedon-project-funding-.*\.vercel\.app$/
+    'https://webster-project-funding.vercel.app',
+    /https:\/\/webster-project-funding-.*\.vercel\.app$/
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -40,7 +38,7 @@ const Survey = mongoose.model('Survey', surveySchema);
 // Add this function to ping the server
 const pingServer = async () => {
   try {
-    const response = await axios.get('https://macedon-project-funding-backend.onrender.com');
+    const response = await axios.get('https://webster-project-funding-backend.onrender.com');
     console.log('Ping successful:', response.status);
   } catch (error) {
     console.error('Ping failed:', error.message);
